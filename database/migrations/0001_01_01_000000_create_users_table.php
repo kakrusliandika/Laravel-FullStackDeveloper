@@ -11,29 +11,53 @@ return new class extends Migration
      */
     public function up(): void
     {
+        // Create the users table
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
+            $table->string('username')->unique();
             $table->string('password');
+            $table->string('name');
+            $table->string('email', 255)->unique();
+            $table->string('whatsapp')->nullable();
+            $table->string('image')->nullable();
+            $table->enum('blokir', ['Y', 'N'])->default('N');
+            $table->string('level')->default('pengguna');
+            $table->string('metode_login')->nullable();
+            $table->string('ip')->nullable(); // Nullable as IP is not always required
+            $table->timestamp('email_verified_at')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });
 
-        Schema::create('password_reset_tokens', function (Blueprint $table) {
-            $table->string('email')->primary();
+        // Create the users_reset_tokens table
+        Schema::create('users_reset_tokens', function (Blueprint $table) {
+            $table->id();
+            $table->string('username')->nullable();
+            $table->foreign('username')->references('username')->on('users')->onDelete('cascade');
+            $table->string('email')->index();
             $table->string('token');
-            $table->timestamp('created_at')->nullable();
+            $table->timestamps();
         });
 
-        Schema::create('sessions', function (Blueprint $table) {
+        // Create the users_sessions table with relation to 'users' table
+        Schema::create('users_sessions', function (Blueprint $table) {
             $table->string('id')->primary();
-            $table->foreignId('user_id')->nullable()->index();
-            $table->string('ip_address', 45)->nullable();
-            $table->text('user_agent')->nullable();
+            $table->date('tanggal')->nullable();
+            $table->integer('hits')->default(0);
+            $table->string('ip')->nullable();
+            $table->string('perangkat')->nullable();
+            $table->string('browser')->nullable();
+            $table->string('os')->nullable();
+            $table->string('code_country', 10)->nullable();
+            $table->string('country')->nullable();
+            $table->string('region')->nullable();
+            $table->string('city')->nullable();
+            $table->decimal('lat', 15, 10)->nullable();
+            $table->decimal('long', 15, 10)->nullable();
+            $table->string('isp')->nullable();
             $table->longText('payload');
             $table->integer('last_activity')->index();
+            $table->timestamps();
         });
     }
 
@@ -42,8 +66,8 @@ return new class extends Migration
      */
     public function down(): void
     {
+        Schema::dropIfExists('users_sessions');
+        Schema::dropIfExists('users_reset_tokens');
         Schema::dropIfExists('users');
-        Schema::dropIfExists('password_reset_tokens');
-        Schema::dropIfExists('sessions');
     }
 };

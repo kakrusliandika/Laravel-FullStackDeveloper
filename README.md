@@ -36,6 +36,15 @@ This setup is intended as a basic starting point for cloning a Laravel project, 
 - CSS and JavaScript plugins
 - Full-stack frontend support with Next.js and React.js
 
+### Test On Laragon:
+- Apache 2.4.62
+- MySQL 8.0.40
+- PHP 8.2.25
+- Nginx 1.22.1
+- Redis 5.0.14
+- MongoDB 6.0.19
+- PostgreSQL 15.8.0
+
 If you discover a security vulnerability within Laravel, please send an email to Taylor Otwell at [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
 
 ## License

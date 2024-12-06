@@ -29,6 +29,7 @@ This setup is intended as a basic starting point for cloning a Laravel project, 
 - React.js
 - Tailwind CSS
 - Vite
+- TypeScript
 - Fortify
 - Socialite
 - Passport

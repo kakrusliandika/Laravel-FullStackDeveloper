@@ -21,7 +21,7 @@ class Kernel extends HttpKernel
         \Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse::class,
         \Illuminate\Session\Middleware\AuthenticateSession::class,
         \Illuminate\Routing\Middleware\SubstituteBindings::class,
-        \Spatie\HttpLogger\Middlewares\HttpLogger::class,
+        \App\Http\Middleware\HttpLogger::class,
     ];
 
     /**
@@ -61,7 +61,8 @@ class Kernel extends HttpKernel
         'signed' => \Illuminate\Routing\Middleware\ValidateSignature::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
-        'http.logger' => \Spatie\HttpLogger\Middlewares\HttpLogger::class,
+        'http.logger' => \App\Http\Middleware\HttpLogger::class,
+
         // If you have any additional route-based middleware, add them here
     ];
 }
